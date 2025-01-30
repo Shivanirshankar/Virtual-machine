@@ -1,0 +1,29 @@
+name: VirtualBox VM Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  create-vm:
+    runs-on: self-hosted  # Runs on your local Windows machine
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Vagrant and VirtualBox (if needed)
+        run: |
+          choco install vagrant virtualbox --ignore-checksums -y
+        shell: powershell
+
+      - name: Start Virtual Machine
+        run: |
+          vagrant up
+        shell: bash
+
+      - name: List Running VMs
+        run: |
+          vagrant status
+        shell: bash
