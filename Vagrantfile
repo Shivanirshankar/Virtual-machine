@@ -6,4 +6,4 @@ Vagrant.configure("2") do |config|
     vb.memory = "2048" # Allocate 2GB RAM
     vb.cpus = 2        # Allocate 2 CPU cores
   end
-end
+end #vm deploy in virtual box
