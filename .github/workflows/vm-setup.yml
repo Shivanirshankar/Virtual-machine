@@ -13,7 +13,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Check if Vagrant and VirtualBox are Installed
+        id: check_tools
+        shell: powershell
+        run: |
+          $vagrantInstalled = (Get-Command vagrant -ErrorAction SilentlyContinue) -ne $null
+          $virtualboxInstalled = (Get-Command VBoxManage -ErrorAction SilentlyContinue) -ne $null
+          if ($vagrantInstalled -and $virtualboxInstalled) {
+            echo "Tools are already installed"
+            echo "TOOLS_INSTALLED=true" >> $env:GITHUB_ENV
+          } else {
+            echo "Tools are not installed"
+            echo "TOOLS_INSTALLED=false" >> $env:GITHUB_ENV
+          }
+
       - name: Install Vagrant and VirtualBox (if needed)
+        if: env.TOOLS_INSTALLED == 'false'
         run: |
           choco install vagrant virtualbox --ignore-checksums -y
         shell: powershell
