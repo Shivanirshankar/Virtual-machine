@@ -13,12 +13,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Start Virtual Machine
+      - name: Start Virtual Machine (Run in PowerShell)
         run: |
           vagrant up
-        shell: bash
+        shell: powershell  # Ensures the command runs in PowerShell instead of WSL
 
       - name: List Running VMs
         run: |
           vagrant status
-        shell: bash
+        shell: powershell  # Runs in PowerShell instead of Linux Bash
