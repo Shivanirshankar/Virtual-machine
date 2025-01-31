@@ -13,17 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Allow PowerShell Scripts to Run
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-        shell: powershell
-
       - name: Start Virtual Machine (Run in PowerShell)
-        run: |
-          vagrant up
-        shell: powershell
+        run: vagrant up
+        shell: cmd  # Run directly in Windows CMD to avoid PowerShell script errors
 
       - name: List Running VMs
-        run: |
-          vagrant status
-        shell: powershell
+        run: vagrant status
+        shell: cmd  # Run in CMD instead of PowerShell
