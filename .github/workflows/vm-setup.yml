@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Check if Vagrant and VirtualBox are Installed
+      - name: Check if Vagrant and VirtualBox are Installed #skip installation if already present
         id: check_tools
         shell: powershell
         run: |
