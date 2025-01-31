@@ -18,7 +18,36 @@ jobs:
           vagrant up
         shell: powershell  # Ensures the command runs in PowerShell instead of WSL
 
+      - name: List Runningname: VirtualBox VM Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  create-vm:
+    runs-on: self-hosted  # Runs on your local Windows machine
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Allow PowerShell Scripts to Run
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+        shell: powershell
+
+      - name: Start Virtual Machine (Run in PowerShell)
+        run: |
+          vagrant up
+        shell: powershell
+
       - name: List Running VMs
+        run: |
+          vagrant status
+        shell: powershell
+ VMs
         run: |
           vagrant status
         shell: powershell  # Runs in PowerShell instead of Linux Bash
